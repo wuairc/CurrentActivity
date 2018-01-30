@@ -12,11 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"/>
 
-    <TextView
+    <Button
+        android:id="@+id/go_to_accessibility_settings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Hello World!"
+        android:text="Accessibility Settings"
         />
 
 </LinearLayout>
