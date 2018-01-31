@@ -1,9 +1,12 @@
 package run.yang.currentactivity.app
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Build.VERSION_CODES
 import android.support.annotation.DrawableRes
+import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.support.v4.util.CircularArray
 import android.text.SpannableStringBuilder
@@ -11,14 +14,21 @@ import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.util.Log
+import run.yang.currentactivity.R
+import run.yang.currentactivity.R.string
 import run.yang.currentactivity.app.util.TextTool
 import run.yang.currentactivity.common.constant.NotiChannelId
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class CurrentActivityNotification(context: Context, @DrawableRes notificationIconRes: Int, private val mNotificationId: Int) {
-    private val mNotificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    private val mBuilder: NotificationCompat.Builder = NotificationCompat.Builder(context, NotiChannelId.CURRENT_ACTIVITY)
+class CurrentActivityNotification(
+        context: Context, @DrawableRes notificationIconRes: Int,
+        private val mNotificationId: Int
+) {
+    private val mNotificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val mBuilder: NotificationCompat.Builder =
+            NotificationCompat.Builder(context, NotiChannelId.CURRENT_ACTIVITY)
     private val mBigTextStyle: NotificationCompat.BigTextStyle
 
     private val mNotificationHistory = CircularArray<NotificationItemInfo>(MAX_NOTIFICATION_ITEM)
@@ -61,7 +71,10 @@ class CurrentActivityNotification(context: Context, @DrawableRes notificationIco
     private fun sameAsLastClass(packageName: CharSequence, fullClassName: CharSequence): Boolean {
         if (!mNotificationHistory.isEmpty) {
             val first = mNotificationHistory.first
-            return TextUtils.equals(first.fullClassName, fullClassName) && TextUtils.equals(first.packageName, packageName)
+            return TextUtils.equals(
+                    first.fullClassName,
+                    fullClassName
+            ) && TextUtils.equals(first.packageName, packageName)
         }
 
         return false
@@ -81,7 +94,12 @@ class CurrentActivityNotification(context: Context, @DrawableRes notificationIco
                 start = builder.length
                 builder.append(info.fullClassName)
                 val end = start + info.packageName!!.length
-                builder.setSpan(StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                builder.setSpan(
+                        StyleSpan(Typeface.BOLD),
+                        start,
+                        end,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             } else {
                 builder.append(info.fullClassName).append('/').append(info.packageName)
             }
@@ -90,7 +108,12 @@ class CurrentActivityNotification(context: Context, @DrawableRes notificationIco
             val text = formatNotificationElapsedTime(diffTime)
             start = builder.length
             builder.append(TextTool.combineToSingleLine(String.format(Locale.US, " %-6s", text)))
-            builder.setSpan(StyleSpan(Typeface.BOLD), start, builder.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            builder.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    start,
+                    builder.length,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             builder.append('\n')
 
             previousTime = info.addTime
@@ -131,6 +154,19 @@ class CurrentActivityNotification(context: Context, @DrawableRes notificationIco
 
         private const val MAX_NOTIFICATION_ITEM = 5
 
+        @RequiresApi(VERSION_CODES.O)
+        fun createCurrentActivityNotificationChannel(context: Context) {
+            val nm =
+                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val id = NotiChannelId.CURRENT_ACTIVITY
+            val name = context.getString(R.string.noti_channel_current_activity_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(id, name, importance)
+            channel.description =
+                    context.getString(string.noti_channel_current_activity_description)
+            nm.createNotificationChannel(channel)
+        }
+
         private fun formatNotificationElapsedTime(diffTimeMillis: Long): String {
             val builder = StringBuilder()
             when {
@@ -138,14 +174,18 @@ class CurrentActivityNotification(context: Context, @DrawableRes notificationIco
                     builder.append(diffTimeMillis).append("ms")
                 }
                 diffTimeMillis < TimeUnit.SECONDS.toMillis(10) -> {
-                    builder.append(String.format(Locale.US, "%.1f", diffTimeMillis / 1000f)).append("s")
+                    builder.append(String.format(Locale.US, "%.1f", diffTimeMillis / 1000f))
+                            .append("s")
                 }
                 diffTimeMillis < TimeUnit.MINUTES.toMillis(1) -> {
                     builder.append(TimeUnit.MILLISECONDS.toSeconds(diffTimeMillis)).append("s")
                 }
                 diffTimeMillis < TimeUnit.MINUTES.toMillis(10) -> {
                     val minute = TimeUnit.MILLISECONDS.toMinutes(diffTimeMillis)
-                    val seconds = TimeUnit.MILLISECONDS.toSeconds(diffTimeMillis) - TimeUnit.MINUTES.toSeconds(minute)
+                    val seconds =
+                            TimeUnit.MILLISECONDS.toSeconds(diffTimeMillis) - TimeUnit.MINUTES.toSeconds(
+                                    minute
+                            )
                     builder.append(minute).append("m").append(seconds).append("s")
                 }
                 diffTimeMillis < TimeUnit.HOURS.toMillis(1) -> {

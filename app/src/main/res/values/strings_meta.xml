@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="accessibility_service_description">Show the name of current activity in notification, no privacy info collected</string>
-    <string name="accessibility_service_label">Show Current Activity</string>
+  <string name="accessibility_service_description">Show the name of current activity in notification, no privacy info collected</string>
+  <string name="accessibility_service_label">Show Current Activity</string>
+  <string name="noti_channel_current_activity_name">Current Activity</string>
+  <string name="noti_channel_current_activity_description">Show current top Activity name</string>
 </resources>

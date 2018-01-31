@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Current Activity</string>
+    <string name="app_accessibility_settings">Accessibility Settings</string>
+    <string name="app_manage_notification_channels">Manage Notification Channels</string>
+    <string name="app_can_not_open_accessibility_settings">Fail to go to accessibility settings</string>
 </resources>
