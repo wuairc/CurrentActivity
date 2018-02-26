@@ -5,8 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 import run.yang.currentactivity.common.base.BaseActivity
 import run.yang.currentactivity.common.constant.NotiChannelId
 import run.yang.currentactivity.common.util.IntentUtil
@@ -17,16 +17,14 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val goToAccessibilitySettingsButton = findViewById<Button>(R.id.go_to_accessibility_settings_btn)
-        goToAccessibilitySettingsButton.setOnClickListener {
+        go_to_accessibility_settings_btn.setOnClickListener {
             IntentUtil.launchExternalActivity(this, Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), {
                 Toast.makeText(this, R.string.app_can_not_open_accessibility_settings, Toast.LENGTH_SHORT).show()
             })
         }
 
-        val manageNotiChannelBtn = findViewById<Button>(R.id.manage_noti_channels_btn)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manageNotiChannelBtn.setOnClickListener {
+            manage_noti_channels_btn.setOnClickListener {
                 val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
                 intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotiChannelId.CURRENT_ACTIVITY)
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
@@ -35,7 +33,7 @@ class MainActivity : BaseActivity() {
                 })
             }
         } else {
-            manageNotiChannelBtn.visibility = View.GONE
+            manage_noti_channels_btn.visibility = View.GONE
         }
     }
 }
