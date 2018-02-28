@@ -9,14 +9,11 @@ import android.content.Intent
  * 作者: Yang Tianmei <br>
  * 描述:
  */
-object IntentUtil {
 
-    inline fun launchExternalActivity(context: Context, intent: Intent,
-                                      notFoundHandler: (e: ActivityNotFoundException) -> Unit) {
-        try {
-            context.startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            notFoundHandler(e)
-        }
+inline fun Intent.startExternalActivity(context: Context, activityNotFoundHandler: (e: ActivityNotFoundException) -> Unit) {
+    try {
+        context.startActivity(this)
+    } catch (e: ActivityNotFoundException) {
+        activityNotFoundHandler(e)
     }
 }

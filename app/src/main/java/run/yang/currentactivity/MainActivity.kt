@@ -9,7 +9,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import run.yang.currentactivity.common.base.BaseActivity
 import run.yang.currentactivity.common.constant.NotiChannelId
-import run.yang.currentactivity.common.util.IntentUtil
+import run.yang.currentactivity.common.util.startExternalActivity
 
 class MainActivity : BaseActivity() {
 
@@ -18,7 +18,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         go_to_accessibility_settings_btn.setOnClickListener {
-            IntentUtil.launchExternalActivity(this, Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), {
+            Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).startExternalActivity(this, {
                 Toast.makeText(this, R.string.app_can_not_open_accessibility_settings, Toast.LENGTH_SHORT).show()
             })
         }
@@ -28,7 +28,7 @@ class MainActivity : BaseActivity() {
                 val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
                 intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotiChannelId.CURRENT_ACTIVITY)
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-                IntentUtil.launchExternalActivity(this, intent, {
+                intent.startExternalActivity(this, {
                     Toast.makeText(this, "Fail to go to notification settings", Toast.LENGTH_SHORT).show()
                 })
             }
