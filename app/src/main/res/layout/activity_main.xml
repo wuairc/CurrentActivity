@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +10,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="64dp" />
+        android:layout_height="64dp"/>
 
     <Button
         android:id="@+id/go_to_accessibility_settings_btn"
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/app_accessibility_settings"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/manage_noti_channels_btn"
@@ -25,6 +26,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/app_manage_notification_channels"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/go_to_system_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_open_system_settings"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

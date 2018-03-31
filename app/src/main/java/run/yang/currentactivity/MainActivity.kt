@@ -19,7 +19,7 @@ class MainActivity : BaseActivity() {
 
         go_to_accessibility_settings_btn.setOnClickListener {
             Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).startExternalActivity(this, {
-                Toast.makeText(this, R.string.app_can_not_open_accessibility_settings, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.app_fail_to_go_to_accessibility_settings, Toast.LENGTH_SHORT).show()
             })
         }
 
@@ -29,11 +29,17 @@ class MainActivity : BaseActivity() {
                 intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotiChannelId.CURRENT_ACTIVITY)
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
                 intent.startExternalActivity(this, {
-                    Toast.makeText(this, "Fail to go to notification settings", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.app_fail_to_go_to_notification_settings, Toast.LENGTH_SHORT).show()
                 })
             }
         } else {
             manage_noti_channels_btn.visibility = View.GONE
+        }
+
+        go_to_system_settings.setOnClickListener {
+            Intent(Settings.ACTION_SETTINGS).startExternalActivity(this, {
+                Toast.makeText(this, R.string.app_fail_to_go_to_system_settings, Toast.LENGTH_SHORT).show()
+            })
         }
     }
 }

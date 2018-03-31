@@ -2,5 +2,8 @@
     <string name="app_name">Current Activity</string>
     <string name="app_accessibility_settings">Accessibility Settings</string>
     <string name="app_manage_notification_channels">Manage Notification Channels</string>
-    <string name="app_can_not_open_accessibility_settings">Fail to go to accessibility settings</string>
+    <string name="app_fail_to_go_to_accessibility_settings">Fail to go to accessibility settings</string>
+    <string name="app_fail_to_go_to_system_settings">Fail to go to System Settings</string>
+    <string name="app_fail_to_go_to_notification_settings">Fail to go to notification settings</string>
+    <string name="app_open_system_settings">Open System Settings</string>
 </resources>
