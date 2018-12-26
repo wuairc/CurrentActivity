@@ -5,15 +5,15 @@ import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Build.VERSION_CODES
-import android.support.annotation.DrawableRes
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
-import android.support.v4.util.CircularArray
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.util.Log
+import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
+import androidx.collection.CircularArray
+import androidx.core.app.NotificationCompat
 import run.yang.currentactivity.R
 import run.yang.currentactivity.R.string
 import run.yang.currentactivity.app.util.TextTool
@@ -44,7 +44,7 @@ class CurrentActivityNotification(
     }
 
     fun show(packageName: CharSequence?, fullClassName: CharSequence?) {
-        Log.d(TAG, "show " + fullClassName)
+        Log.d(TAG, "show $fullClassName")
 
         if (TextUtils.isEmpty(packageName) || TextUtils.isEmpty(fullClassName)) {
             Log.e(TAG, "package name and fullClassName are null")
