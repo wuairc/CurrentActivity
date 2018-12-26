@@ -19,7 +19,7 @@ class CurrentActivityAccessibilityService : AccessibilityService() {
 
         if (mNotification == null) {
             mNotification = CurrentActivityNotification(
-                    this, R.drawable.ic_launcher_foreground, 1)
+                    this, R.drawable.ic_launcher_background, 1)
         }
         mNotification!!.show(event.packageName, event.className)
     }
